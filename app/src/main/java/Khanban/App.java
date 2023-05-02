@@ -3,12 +3,93 @@
  */
 package Khanban;
 
+import java.util.Scanner;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+
+    public static void main(String[] args)
+    {
+        dispatchLoop();
+    }
+    public static void dispatchLoop()
+    {
+        Scanner input = new Scanner(System.in);
+        UserAccount user = new UserAccount("", "", "", "");
+        Login controller = new Login();
+        while (true)
+        {
+            menu();
+            String choice = getAChoice(input);
+            switch (choice)
+            {
+                case "1":
+                    user = createUserAccount(input);
+                    break;
+                case "2":
+                    user = loginUser(input, controller);
+                    break;
+                case "3":
+                    display(user);
+                    break;
+                case "4":
+                    System.exit(0);
+            }
+        }
+    }
+    public static UserAccount createUserAccount(Scanner input)
+    {
+        boolean flag = false;
+        System.out.println("Enter a first name");
+        String fn = input.nextLine();
+        System.out.println("Enter a last name");
+        String ln = input.nextLine();
+        System.out.println("Enter a username");
+        String un = input.nextLine();
+        System.out.println("Enter a password");
+        String pd = input.nextLine();
+        UserAccount aUser = new UserAccount(fn, ln, un, pd);
+        System.out.println(Login.registerUser(aUser));
+
+        return aUser;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public static UserAccount loginUser(Scanner input, Login controller) {
+        boolean flag = false;
+        UserAccount user = new UserAccount("","","","");
+
+        while (!flag) {
+            System.out.println("Enter a username");
+            String un = input.nextLine();
+
+            System.out.println("Enter a password");
+            String pd = input.nextLine();
+            if (Login.checkPasswordComplexity(pd) && Login.checkUserName(un)) {
+                flag = true;
+                user = controller.findUser(un);
+                System.out.println(controller.returnLoginStatus(user));
+            }
+            else {
+                System.out.println(controller.returnLoginStatus(user));
+            }
+        }
+        return user;
+    }
+
+    public static String getAChoice(Scanner input)
+    {
+        return input.nextLine();
+    }
+
+    public static void display(UserAccount u)
+    {
+        System.out.println(u.toString());
+    }
+
+    public static void menu()
+    {
+        System.out.println("1..Create a User Account");
+        System.out.println("2..Login User");
+        System.out.println("3..Display User Details");
+        System.out.println("4..Quit");
     }
 }
