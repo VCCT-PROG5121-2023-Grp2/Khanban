@@ -1,4 +1,4 @@
-name: LoginTest
+name: KhanbanTests
 
 on:
   push:
@@ -24,14 +24,5 @@ jobs:
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build --info
-
       - name: Run unit tests with Gradle
         run: ./gradlew test --info
-
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-artifacts
-          path: build/

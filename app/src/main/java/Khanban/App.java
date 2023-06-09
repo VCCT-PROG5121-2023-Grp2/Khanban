@@ -3,93 +3,157 @@
  */
 package Khanban;
 
+import javax.swing.*;
 import java.util.Scanner;
 
-public class App {
+public class App
+{
+
+    static Task[] tasks;
 
     public static void main(String[] args)
     {
         dispatchLoop();
     }
+
     public static void dispatchLoop()
     {
         Scanner input = new Scanner(System.in);
         UserAccount user = new UserAccount("", "", "", "");
-        Login controller = new Login();
+
         while (true)
         {
-            menu();
-            String choice = getAChoice(input);
+            String choice = JOptionPane.showInputDialog("1..Create a User Account \n 2..Login User \n 3..Display User Details \n 4..Quit");
+
             switch (choice)
             {
-                case "1":
-                    user = createUserAccount(input);
-                    break;
-                case "2":
-                    user = loginUser(input, controller);
-                    break;
-                case "3":
-                    display(user);
-                    break;
-                case "4":
-                    System.exit(0);
+                case "1" -> user = createUserAccount();
+                case "2" ->
+                {
+                    user = loginUser(new Login());
+                    KanbanLoop();
+                }
+                case "3" -> display(user);
+                case "4" -> System.exit(0);
             }
         }
     }
-    public static UserAccount createUserAccount(Scanner input)
+
+    public static UserAccount createUserAccount()
     {
-        boolean flag = false;
-        System.out.println("Enter a first name");
-        String fn = input.nextLine();
-        System.out.println("Enter a last name");
-        String ln = input.nextLine();
-        System.out.println("Enter a username");
-        String un = input.nextLine();
-        System.out.println("Enter a password");
-        String pd = input.nextLine();
+        String fn = JOptionPane.showInputDialog("Enter a first name");
+        String ln = JOptionPane.showInputDialog("Enter a last name");
+        String un = JOptionPane.showInputDialog("Enter a username");
+        String pd = JOptionPane.showInputDialog("Enter a password");
+
         UserAccount aUser = new UserAccount(fn, ln, un, pd);
-        System.out.println(Login.registerUser(aUser));
+
+        JOptionPane.showMessageDialog(null, Login.registerUser(aUser));
 
         return aUser;
     }
 
-    public static UserAccount loginUser(Scanner input, Login controller) {
+    public static UserAccount loginUser(Login controller)
+    {
         boolean flag = false;
-        UserAccount user = new UserAccount("","","","");
 
-        while (!flag) {
-            System.out.println("Enter a username");
-            String un = input.nextLine();
+        UserAccount user = new UserAccount("", "", "", "");
 
-            System.out.println("Enter a password");
-            String pd = input.nextLine();
-            if (Login.checkPasswordComplexity(pd) && Login.checkUserName(un)) {
+        while (!flag)
+        {
+            String un = JOptionPane.showInputDialog("Enter a username");
+            String pd = JOptionPane.showInputDialog("Enter a password");
+
+            if (Login.checkPasswordComplexity(pd) && Login.checkUserName(un))
+            {
                 flag = true;
                 user = controller.findUser(un);
-                System.out.println(controller.returnLoginStatus(user));
-            }
-            else {
-                System.out.println(controller.returnLoginStatus(user));
+
+                if (controller.loginUser(user.getUserName(), user.getPassword()))
+                {
+                    JOptionPane.showMessageDialog(null, "Welcome to EasyKanban " + user.getFirstName() + "!");
+
+                } else
+                {
+                    JOptionPane.showMessageDialog(null, "Username or password incorrect, please try again");
+                }
+
+            } else
+            {
+                JOptionPane.showMessageDialog(null, "Username or password does not match requirements, please try again");
             }
         }
         return user;
     }
 
-    public static String getAChoice(Scanner input)
+    public static void display(UserAccount user)
     {
-        return input.nextLine();
+        JOptionPane.showMessageDialog(null, user.toString());
     }
 
-    public static void display(UserAccount u)
+    public static void KanbanLoop()
     {
-        System.out.println(u.toString());
+        tasks = new Task[2];
+        boolean flag = true;
+
+        while (flag)
+        {
+            String choice = JOptionPane.showInputDialog(null, "\nOption 1) Add tasks \nOption 2) Show report \nOption 3) Quit ");
+            switch (choice)
+            {
+                case "1" ->
+                {
+                    int tasksAmount = Integer.parseInt(JOptionPane.showInputDialog("How many tasks would you like to add?"));
+                    tasks = createTasks(tasksAmount, getTotalTasks());
+                }
+                case "2" -> JOptionPane.showMessageDialog(null, "Coming Soon.");
+                case "3" -> flag = false;
+            }
+        }
     }
 
-    public static void menu()
+    public static Task[] createTasks(int tasksAmount, int totalTasks)
     {
-        System.out.println("1..Create a User Account");
-        System.out.println("2..Login User");
-        System.out.println("3..Display User Details");
-        System.out.println("4..Quit");
+        Task[] tasks = new Task[tasksAmount];
+
+
+        for (int i = 0; i < tasksAmount; i++)
+        {
+            boolean valid = false;
+
+            while (!valid)
+            {
+
+                int number = totalTasks + i + 1;
+                String name = JOptionPane.showInputDialog("The name of the task to be performed: ");
+                String developerDetails = JOptionPane.showInputDialog("Please enter the first and last name of the developer assigned to the task: ");
+                int duration = Integer.parseInt(JOptionPane.showInputDialog("Enter the duration for the task"));
+                String description = JOptionPane.showInputDialog("A short description of the task, this description should not exceed 50 characters in length.");
+
+                //Solution from https://stackoverflow.com/a/8899888
+                String[] statuses = {"To do", "Done", "Doing"};
+                String taskStatus = JOptionPane.showInputDialog(null, "The status of the task", "", JOptionPane.PLAIN_MESSAGE, null, statuses, statuses[0]).toString();
+
+                if (Task.checkTaskDescription(description))
+                {
+                    JOptionPane.showMessageDialog(null, "Task successfully captured");
+                    valid = true;
+                    Task task = new Task(name, number, description, developerDetails, duration, taskStatus);
+                    JOptionPane.showMessageDialog(null, task.printTaskDetails());
+                    tasks[i] = task;
+                } else
+                {
+                    JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters");
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + Task.returnTotalHours(tasks));
+        return tasks;
+    }
+
+    public static int getTotalTasks() //The theoretical method to return the total amount of tasks stored(not needed for part 2), to increment each new Task with a unique number when a task is created.
+    {
+        //todo
+        return 0;
     }
 }
