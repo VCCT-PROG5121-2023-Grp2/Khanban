@@ -3,6 +3,7 @@ package Khanban;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Task {
     String name;
@@ -22,11 +23,18 @@ public class Task {
         this.taskId = createTaskID(name, number, developerDetails);
         this.taskStatus = taskStatus;
     }
-    String createTaskID(String name, int number, String developerDetails)
+
+    public String getTaskStatus()
     {
-        return (name.substring(0,2) + ":"  + number + ":" + developerDetails.substring(developerDetails.length()-3)).toUpperCase();
+        return taskStatus;
     }
-    public String printTaskDetails() 
+
+    public void setTaskStatus(String taskStatus)
+    {
+        this.taskStatus = taskStatus;
+    }
+
+    public String printTaskDetails()
     {
         return "Task status: \t" + taskStatus +
                 "\n Developer details: \t" + developerDetails +
@@ -34,11 +42,23 @@ public class Task {
                 "\n Task name: \t" + name +
                 "\n Task description: \t" + description +
                 "\n Task ID: \t" + taskId +
-                "\n Duration: " + duration + " hours";
+                "\n totalHours: " + duration + " hours";
     }
-    int returnDuration(LocalDateTime dateCreated)
+    public static String createTaskID(String name, int number, String developerDetails)
     {
-        return Math.toIntExact((Duration.between(dateCreated, LocalDateTime.now()).toHours()));
+        String developerName = developerDetails.substring(0,developerDetails.indexOf(" "));
+        return (name.substring(0,2) + ":"  + number + ":" + developerName.substring(developerName.length()-3)).toUpperCase();
+    }
+
+    public static int returnTotalHours(Task[] tasks)
+    {
+        int totalHours = 0;
+
+        for (var task : tasks)
+        {
+            totalHours = totalHours + task.duration;
+        }
+        return totalHours;
     }
     public static boolean checkTaskDescription(String description)
     {
@@ -86,14 +106,14 @@ public class Task {
         this.developerDetails = developerDetails;
     }
 
-    public long getduration()
+    public long getDuration()
     {
         return duration;
     }
 
-    public void setduration(int duration)
+    public void setDuration(int totalHours)
     {
-        this.duration = duration;
+        this.duration = totalHours;
     }
 
     public String getTaskId()

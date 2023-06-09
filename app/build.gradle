@@ -13,20 +13,18 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
+    testImplementation 'junit:junit:4.13.1'
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'Khanban.App'
+
 }
 test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
     }
-    // Run a specific test class
-    filter {
-        includeTestsMatching "**Login"
-        includeTestsMatching "**Task"
-    }
+
 }

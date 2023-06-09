@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class App
 {
 
+    static Task tasks[];
     public static void main(String[] args)
     {
         dispatchLoop();
@@ -94,7 +95,7 @@ public class App
 
     public static void KanbanLoop()
     {
-        ArrayList<Task> tasks;
+        tasks = new Task[2];
         boolean flag = true;
 
         while (flag)
@@ -113,9 +114,9 @@ public class App
         }
     }
 
-    public static ArrayList<Task> createTasks(int tasksAmount, int totalTasks)
+    public static Task[] createTasks(int tasksAmount, int totalTasks)
     {
-        ArrayList<Task> tasks = new ArrayList<>(tasksAmount);
+        Task[] tasks = new Task[tasksAmount];
 
 
         for (int i = 0; i < tasksAmount; i++)
@@ -141,7 +142,7 @@ public class App
                     valid = true;
                     Task task = new Task(name, number, description, developerDetails , duration, taskStatus);
                     JOptionPane.showMessageDialog(null, task.printTaskDetails());
-                    tasks.add(task);
+                    tasks[i] = task;
                 }
                 else
                 {
@@ -149,15 +150,13 @@ public class App
                 }
             }
         }
+        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + Task.returnTotalHours(tasks));
         return tasks;
     }
 
-    public static int getTotalTasks() //once the tasks are stored in a database i will need to access the amount of rows in order to determine the task number
+    public static int getTotalTasks() //The theoretical method to return the total amount of tasks stored(not needed for part 2), to increment each new Task with a unique number when a task is created.
     {
-        return 0;
-    }
-    public static int getTotalTaskHours()
-    {
+        //todo
         return 0;
     }
 }
