@@ -56,28 +56,14 @@ public class AppTest
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of dispatchLoop method, of class App.
-     */
-    @Test
-    public void testDispatchLoop()
-    {
-        System.out.println("dispatchLoop");
-        App.dispatchLoop();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of createUserAccount method, of class App.
-     */
     @Test
     public void testCreateUserAccount()
     {
         System.out.println("createUserAccount");
         Scanner input = null;
         UserAccount expResult = null;
-        UserAccount result = App.createUserAccount(input);
+        UserAccount result = App.createUserAccount();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -93,50 +79,9 @@ public class AppTest
         Scanner input = null;
         Login controller = null;
         UserAccount expResult = null;
-        UserAccount result = App.loginUser(input, controller);
+        UserAccount result = App.loginUser(controller);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of getAChoice method, of class App.
-     */
-    @Test
-    public void testGetAChoice()
-    {
-        System.out.println("getAChoice");
-        Scanner input = null;
-        String expResult = "";
-        String result = App.getAChoice(input);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of display method, of class App.
-     */
-    @Test
-    public void testDisplay()
-    {
-        System.out.println("display");
-        UserAccount u = null;
-        App.display(u);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of menu method, of class App.
-     */
-    @Test
-    public void testMenu()
-    {
-        System.out.println("menu");
-        App.menu();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

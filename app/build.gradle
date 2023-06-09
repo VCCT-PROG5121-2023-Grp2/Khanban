@@ -26,6 +26,7 @@ test {
     }
     // Run a specific test class
     filter {
-        includeTestsMatching "**LoginIT"
+        includeTestsMatching "**Login"
+        includeTestsMatching "**Task"
     }
 }

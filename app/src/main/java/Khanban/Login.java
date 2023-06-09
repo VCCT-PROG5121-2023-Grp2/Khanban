@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -26,7 +27,8 @@ public class Login
     {
         try
         {
-            Scanner scanLine = new Scanner(new File("C:\\Users\\vjohn\\Documents\\NetBeansProjects\\KanbanBoard\\app\\src\\main\\java\\KanbanBoard\\Users.txt"));
+            String cwd = Path.of("").toAbsolutePath().toString(); //Gets current absolute directory https://stackoverflow.com/a/51028045
+            Scanner scanLine = new Scanner(new File(cwd + "\\Users.txt"));
             while (scanLine.hasNextLine())
             {
                 String line = scanLine.nextLine();
@@ -41,7 +43,7 @@ public class Login
         }
     }
 
-    static public boolean checkUserName(String un)
+    public static boolean checkUserName(String un)
     {
         if (un.contains("_") && un.length() <= 5)
         {
@@ -52,7 +54,7 @@ public class Login
         }
     }
 
-    static public boolean checkPasswordComplexity(String pd)
+    public static boolean checkPasswordComplexity(String pd)
     {
         boolean capitalFlag = false;
         boolean digitFlag = false;
@@ -82,7 +84,7 @@ public class Login
         }
     }
 
-    static public String registerUser(UserAccount u)
+    public static String registerUser(UserAccount u)
     {
         try
         {
@@ -125,27 +127,13 @@ public class Login
         for (UserAccount u : userArr)
         {
 
-            if (un.equals(u.getUserName()) && pd.equals(u.getPassword()))
+            if (un.equals(u.getUserName()) && pd.equals(u.getPassword()) && !foundFlag)
             {
                 foundFlag = true;
             }
         }
 
         return foundFlag;
-    }
-
-    public String returnLoginStatus(UserAccount u)
-    {
-        String message = "";
-        if (loginUser(u.getUserName(), u.getPassword()))
-        {
-            message = "Welcome " + u.getFirstName() + " " + u.getLastName() + " it is great to see you again.";
-        } else
-        {
-            message = "Username or password incorrect, please try again";
-        }
-
-        return message;
     }
 
     public UserAccount findUser(String un)
