@@ -25,10 +25,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: gradlew build --info
+        run: gradle build --info
 
       - name: Run unit tests with Gradle
-        run: gradlew test --info
+        run: gradle test --info
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@v2
