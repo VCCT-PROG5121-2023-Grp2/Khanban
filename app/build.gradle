@@ -24,7 +24,6 @@ application {
 }
 test {
     filter {
-        includeTestsMatching "test.java.TaskTest"
     }
     useJUnitPlatform()
     testLogging {
