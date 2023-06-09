@@ -21,8 +21,8 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Build with Gradle
-        run: gradle build --info
+      - name: Grant execute permission for Gradle Wrapper
+        run: chmod +x gradlew
 
       - name: Run unit tests with Gradle
-        run: gradle test --info
+        run: ./gradlew test --info
