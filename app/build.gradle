@@ -22,7 +22,6 @@ application {
 
 }
 test {
-    dependsOn ':subproject:test'
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
