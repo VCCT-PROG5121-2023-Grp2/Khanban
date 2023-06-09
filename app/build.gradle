@@ -23,6 +23,9 @@ application {
 
 }
 test {
+    filter {
+        includeTestsMatching "test.java.TaskTest"
+    }
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
