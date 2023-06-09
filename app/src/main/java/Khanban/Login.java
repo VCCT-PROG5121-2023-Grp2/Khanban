@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author vjohn
  */
 public class Login
@@ -45,13 +44,7 @@ public class Login
 
     public static boolean checkUserName(String un)
     {
-        if (un.contains("_") && un.length() <= 5)
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+        return un.contains("_") && un.length() <= 5;
     }
 
     public static boolean checkPasswordComplexity(String pd)
@@ -75,13 +68,7 @@ public class Login
                 specialFlag = true;
             }
         }
-        if (capitalFlag && digitFlag && specialFlag && pd.length() >= 8)
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+        return capitalFlag && digitFlag && specialFlag && pd.length() >= 8;
     }
 
     public static String registerUser(UserAccount u)
@@ -130,6 +117,7 @@ public class Login
             if (un.equals(u.getUserName()) && pd.equals(u.getPassword()) && !foundFlag)
             {
                 foundFlag = true;
+                break;
             }
         }
 

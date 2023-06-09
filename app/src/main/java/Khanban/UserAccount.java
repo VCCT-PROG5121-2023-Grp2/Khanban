@@ -5,82 +5,92 @@
 package Khanban;
 
 /**
- *
  * @author vjohn
  */
-public class UserAccount {
+public class UserAccount
+{
     private String firstName;
     private String lastName;
     private String userName;
     private String password;
-    
+
     // constructor
-    public UserAccount(String fn, String ln, String un, String pd) {
+    public UserAccount(String fn, String ln, String un, String pd)
+    {
         firstName = fn;
         lastName = ln;
         userName = un;
         password = pd;
     }
-    
+
     @Override
-    public String toString() {
-        return "[" + getFirstName() + ", " + getLastName() 
+    public String toString()
+    {
+        return "[" + getFirstName() + ", " + getLastName()
                 + ", " + getUserName() + ", " + getPassword() + "]";
     }
 
     /**
      * @return the firstName
      */
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
     /**
      * @param firstName the firstName to set
      */
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
     /**
      * @return the lastName
      */
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
     /**
      * @param lastName the lastName to set
      */
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
     /**
      * @return the userName
      */
-    public String getUserName() {
+    public String getUserName()
+    {
         return userName;
     }
 
     /**
      * @param userName the userName to set
      */
-    public void setUserName(String userName) {
+    public void setUserName(String userName)
+    {
         this.userName = userName;
     }
 
     /**
      * @return the password
      */
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 }

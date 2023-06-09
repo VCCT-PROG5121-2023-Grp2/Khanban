@@ -4,15 +4,13 @@
 package Khanban;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App
 {
 
-    static Task tasks[];
+    static Task[] tasks;
+
     public static void main(String[] args)
     {
         dispatchLoop();
@@ -123,7 +121,7 @@ public class App
         {
             boolean valid = false;
 
-            while(!valid)
+            while (!valid)
             {
 
                 int number = totalTasks + i + 1;
@@ -140,11 +138,10 @@ public class App
                 {
                     JOptionPane.showMessageDialog(null, "Task successfully captured");
                     valid = true;
-                    Task task = new Task(name, number, description, developerDetails , duration, taskStatus);
+                    Task task = new Task(name, number, description, developerDetails, duration, taskStatus);
                     JOptionPane.showMessageDialog(null, task.printTaskDetails());
                     tasks[i] = task;
-                }
-                else
+                } else
                 {
                     JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters");
                 }
