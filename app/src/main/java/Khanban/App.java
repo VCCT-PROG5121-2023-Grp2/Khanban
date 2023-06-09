@@ -5,7 +5,14 @@ package Khanban;
 
 import java.util.Scanner;
 
+<<<<<<< Updated upstream
 public class App {
+=======
+public class App //Main class
+{
+
+    static Task[] tasks;
+>>>>>>> Stashed changes
 
     public static void main(String[] args)
     {

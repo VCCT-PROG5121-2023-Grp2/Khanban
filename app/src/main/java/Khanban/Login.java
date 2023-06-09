@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author vjohn
  */
-public class Login
+public class Login //Login class
 {
 
     ArrayList<UserAccount> userArr = new ArrayList<>();

@@ -8,7 +8,12 @@ package Khanban;
  *
  * @author vjohn
  */
+<<<<<<< Updated upstream
 public class UserAccount {
+=======
+public class UserAccount //Class to define a user account object
+{
+>>>>>>> Stashed changes
     private String firstName;
     private String lastName;
     private String userName;
